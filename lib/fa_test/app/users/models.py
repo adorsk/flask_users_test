@@ -7,9 +7,10 @@ from sqlalchemy.ext.associationproxy import association_proxy
 
 
 class User(flask_security.UserMixin):
-    def __init__(self, id=None, email=None, roles={}, role_ids=[]):
+    def __init__(self, id=None, email=None, password=None, roles={}, role_ids=[]):
         self.id = id
         self.email = email
+        self.password = password
         if roles:
             self.roles = roles
         elif role_ids:
@@ -46,6 +47,7 @@ class UserRole(object):
 user_table = Table('user', db.metadata,
                    Column('id', Integer, primary_key=True),
                    Column('email', String),
+                   Column('password', String),
                   )
 
 role_table = Table('role', db.metadata,

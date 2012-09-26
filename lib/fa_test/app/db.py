@@ -1,4 +1,4 @@
-from ..config import config
+from fa_test.config import config
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import scoped_session, sessionmaker
 
@@ -12,3 +12,5 @@ def init_db(bind=engine):
 
 def clear_db(bind=engine):
 	metadata.drop_all(bind=bind)
+
+from datetime import datetime

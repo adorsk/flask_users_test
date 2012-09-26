@@ -17,4 +17,5 @@ def shutdown_session(exception=None):
 
 from fa_test.app.users import models as users_models
 from fa_test.app.users import admin as users_admin
+
 admin.add_view(users_admin.SAUserAdmin(db.session))
