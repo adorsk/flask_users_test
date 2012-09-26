@@ -81,7 +81,7 @@ setattr(
     association_proxy(
         'role', 
         'id', 
-        creator=lambda k: db.session.merge(Role(id=k))
+        creator=lambda k: db.session.query(Role).get(k)
     )
 )
 

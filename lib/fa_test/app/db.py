@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 
-engine = create_engine(config['DB_URI'], convert_unicode=True)
+engine = create_engine(config['DB_URI'], convert_unicode=True, echo=True)
 metadata = MetaData()
 session = scoped_session(sessionmaker(bind=engine))
 

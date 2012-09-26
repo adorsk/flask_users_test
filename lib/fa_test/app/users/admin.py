@@ -29,22 +29,11 @@ class SAUserAdmin(sqlamodel.ModelView):
             def get_role_choices(self):
                 roles = session.query(models.Role)\
                         .order_by(models.Role.name)
-                return [(role.id, role.name) for role in roles]
+                choices = [(role.id, role.name) for role in roles]
+                print "choices is: ", choices
+                return choices
 
         return UserForm
-
-    """
-    def create_form(self, *args, **kwargs):
-        form_instance = super(SAUserAdmin, self).create_form(*args, **kwargs)
-        print "fi is: ", form_instance
-        choices = [
-            (role.id, role.name) 
-            for role in self.session.query(models.Role).order_by(models.Role.name)
-        ]
-        print "choices is: ", choices
-        form_instance.role_ids.choices = choices
-        return form_instance
-    """
 
 class SARoleAdmin(sqlamodel.ModelView):
     def __init__(self, session, endpoint='roles', **kwargs):
