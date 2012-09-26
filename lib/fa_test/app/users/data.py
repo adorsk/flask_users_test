@@ -1,8 +1,6 @@
 from . import models
 
 
-roles = {}
-
 def setup_initial_data(session):
     setup_initial_roles(session)
 
@@ -14,4 +12,3 @@ def setup_initial_roles(session):
     )
     session.add(admin_role)
     session.commit()
-    roles['admin'] = admin_role

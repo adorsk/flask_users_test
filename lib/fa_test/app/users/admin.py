@@ -11,6 +11,7 @@ class SAUserAdmin(sqlamodel.ModelView):
             endpoint=endpoint, 
             **kwargs
         )
+
     list_columns = ['email']
 
     def get_form(self):
@@ -22,8 +23,8 @@ class SAUserAdmin(sqlamodel.ModelView):
             "role_ids", 
             flask_wtf.SelectMultipleField(
                 choices=[
-                    ('a1', 'Role 1'), 
-                    ('a2', 'Role 2')
+                    (role.id, role.name) 
+                    for role in self.session.query(models.Role).order_by('name')
                 ]
             )
         )
