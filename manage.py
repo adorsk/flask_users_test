@@ -1,4 +1,4 @@
-from simple import app
+from app import app
 import db
 from flask_script import Manager
 from flask.ext.sqlalchemy import SQLAlchemy

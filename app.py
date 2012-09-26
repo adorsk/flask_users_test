@@ -20,16 +20,12 @@ app = Flask(__name__)
 # Create dummy secrey key so we can use sessions
 app.config['SECRET_KEY'] = '123456790'
 
-# Configure database.
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/adorsk/projects/fa_test/db.sqlite'
-
+users_models.setup_orm(db)
 
 if __name__ == '__main__':
     # Create admin
     admin = admin.Admin(app, 'Simple Models')
 
-    # Setup users.
-    users_models.setup_orm(db)
     admin.add_view(users_admin.SAUserAdmin(db.session()))
     #admin.add_view(users_admin.SARoleAdmin(db.session))
 
