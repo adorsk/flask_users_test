@@ -1,0 +1,6 @@
+flask-admin
+flask-security
+py2.7
+
+*.pyc
+*.sqlite
