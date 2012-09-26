@@ -39,4 +39,3 @@ class SARoleAdmin(sqlamodel.ModelView):
         )
     list_columns = ['id', 'name']
     form_columns=['id', 'name']
-
