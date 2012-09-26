@@ -11,4 +11,21 @@ def setup_initial_roles(session):
         description='Administrative role.'
     )
     session.add(admin_role)
+
+    admin_user = models.User(
+        email="admin",
+        password="admin",
+        active=True,
+        roles=[admin_role]
+    )
+    session.add(admin_user)
+
+    normal_user = models.User(
+        email="normal",
+        password="normal",
+        active=True,
+    )
+    session.add(normal_user)
+
     session.commit()
+

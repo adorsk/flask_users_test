@@ -1,22 +1,32 @@
 from fa_test.app import db
 import flask_security
-from sqlalchemy import Table, Column, Integer, String, Text, ForeignKey
+from sqlalchemy import (Table, Column, Integer, String, Text, ForeignKey,
+                        Boolean)
 from sqlalchemy.orm import mapper, relationship, backref
 from sqlalchemy.orm.collections import attribute_mapped_collection
 from sqlalchemy.ext.associationproxy import association_proxy
 
 
 class User(flask_security.UserMixin):
-    def __init__(self, id=None, email=None, password=None, roles={}, role_ids=[]):
+    def __init__(self, id=None, email=None, password=None, roles={},
+                 role_ids=[], active=None):
         self.id = id
         self.email = email
         self.password = password
+        self.active = active
+
         if roles:
             self.roles = roles
         elif role_ids:
             self.role_ids = role_ids
         else:
             self.roles = roles
+
+    def __str__(self):
+        return "%s, %s" % (
+            super(User, self).__str__,
+            self.__dict__
+        )
 
 class Role(flask_security.RoleMixin):
     def __init__(self, id=None, name=None, description=None):
@@ -48,6 +58,7 @@ user_table = Table('user', db.metadata,
                    Column('id', Integer, primary_key=True),
                    Column('email', String),
                    Column('password', String),
+                   Column('active', Boolean),
                   )
 
 role_table = Table('role', db.metadata,
