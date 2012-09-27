@@ -1,10 +1,8 @@
 from . import models
+from flask_security.utils import encrypt_password
 
 
 def setup_initial_data(session):
-    setup_initial_roles(session)
-
-def setup_initial_roles(session):
     admin_role = models.Role(
         id='admin', 
         name='Admin', 
@@ -12,20 +10,24 @@ def setup_initial_roles(session):
     )
     session.add(admin_role)
 
-    admin_user = models.User(
-        email="admin",
-        password="admin",
-        active=True,
-        roles=[admin_role]
-    )
-    session.add(admin_user)
+    user_defs = [
+        {
+            'email': 'admin',
+            'password': 'admin',
+            'active': True,
+            'roles': [admin_role]
+        },
+        {
+            'email': 'normal',
+            'password':'normal',
+            'active': True,
+        }
+    ]
 
-    normal_user = models.User(
-        email="normal",
-        password="normal",
-        active=True,
-    )
-    session.add(normal_user)
+    for user_def in user_defs:
+        user_def['password'] = encrypt_password(user_def['password'])
+        user = models.User(**user_def)
+        session.add(user)
 
     session.commit()
 

@@ -31,10 +31,6 @@ def index():
     u = flask_security.current_user
     return "u is: %s" % flask.escape(str(u))
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    return render_template('login.html', form=flask_security.LoginForm())
-
 @app.route('/logout')
 def logout():
     flask_security.logout_user()
